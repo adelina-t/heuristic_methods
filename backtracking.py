@@ -12,6 +12,10 @@ data_set = None
 
 array = []
 
+def clear_array():
+	global array
+	array = []
+
 def init_array(solution_size):
 	global array
 	array = [0] * solution_size
@@ -52,13 +56,12 @@ def _backtrack(pozition, solution_size):
 				_backtrack(pozition + 1, solution_size)
 
 @utils.calculate_runtime
-def backtrack():
+def backtrack(data_file):
 	global data_set
 	data_set = Data()
-	data_set.populate_from_file('.\data_sample_15')
+	data_set.populate_from_file(data_file)
+	clear_array()
 	for size in xrange(1, data_set.no_objects + 1):
 		init_array(size)
 		_backtrack(0, size)
-
-run_time = backtrack()
-print "Run time %s best_solution %s" % (run_time, best_solution)
+	return best_solution

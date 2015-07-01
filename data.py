@@ -1,4 +1,5 @@
 import random
+import os
 
 class Data(object):
 
@@ -23,8 +24,7 @@ class Data(object):
 		return self.__repr__()
 
 	@staticmethod
-	def generate_data_to_file(size):
-		file_path = "data_sample_%s" % size
+	def generate_data_to_file(size, file_path):
 		f = open(file_path, 'w')
 
 		random.seed()
@@ -33,9 +33,15 @@ class Data(object):
 		
 		array = ""
 		for x in xrange(size):
-			array = array + "%s " % (random.randint(60,120))
+			array = array + "%s " % (random.randint(70,130))
 		f.write(array + "\n")
 		array = ""
 		for x in xrange(size):
 			array = array + "%s " % (random.randint(1,100))
 		f.write(array + "\n")
+
+def generate_all_data_files():
+	for size in [8,10,15,50,100]:
+			file_path = "data_set_%s" % (size)
+			file_path = os.path.join("data_sets", file_path)
+			Data.generate_data_to_file(size, file_path)
